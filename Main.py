@@ -1,7 +1,12 @@
 #source venv/bin/activate
  
 import pygame
+import random
 from Horse import Horse
+from Names import Names
+
+GREY = (128, 128, 128)
+BLACK = (0, 0, 0)
 
 # simple button class
 class Button:
@@ -13,19 +18,16 @@ class Button:
 
     def draw(self, screen, font):
         pygame.draw.rect(screen, self.color, self.rect)
-        label = font.render(self.text, True, (255, 255, 255))
+        label = font.render(self.text, True, BLACK)
         screen.blit(label, (self.rect.x + 10, self.rect.y + 10))
 
     def check_click(self, pos):
         if self.rect.collidepoint(pos):
             self.callback()
 
-GREY = (128, 128, 128)
-BLACK = (0, 0, 0)
-
 colors = [
     (255, 0, 0),    #Red
-    (0, 0, 0),      #Black
+    (0, 255, 255),  #Cyan
     (255, 255, 255),#White
     (0, 255, 0),    #Green
     (60, 179, 113), #MediumSeaGreen
@@ -34,7 +36,8 @@ colors = [
 horses = []
 
 for i in range(5):
-    horses.append(Horse("Horse" + str(i), colors[i], 100 + (50*i)))
+    name = Names.pop(random.randint(0, len(Names) - 1))
+    horses.append(Horse(name, colors[i], 100 + (50 * i)))
 
 #Game Setup
 pygame.init()  
@@ -59,7 +62,7 @@ def make_bet(horse_name):
     print("You bet on:", selected_bet)
 
 for i, horse in enumerate(horses):
-    btn = Button((SCREEN_X - 200) / 2, 100 + i * 60, 200, 40, f"Bet on {horse.name}", BLACK, lambda name=horse.name: make_bet(name))
+    btn = Button((SCREEN_X - 200) / 2, 100 + i * 60, 220, 40, f"Bet on {horse.name}", horse.color, lambda name=horse.name: make_bet(name))
     buttons.append(btn)
 
 #Game loop
