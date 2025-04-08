@@ -2,25 +2,29 @@
  
 import pygame
 from Horse import Horse
- 
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
+
 GREY = (128, 128, 128)
 
-horses = [
-    Horse("Red", RED, 100),
-    Horse("Green", GREEN, 150),
-    Horse("Black", BLACK, 200),
+colors = [
+    (255, 0, 0),    #Red
+    (0, 0, 0),      #Black
+    (255, 255, 255),#White
+    (0, 255, 0),    #Green
+    (60, 179, 113), #MediumSeaGreen
 ]
+
+horses = []
+
+for i in range(5):
+    horses.append(Horse("Horse" + str(i), colors[i], 100 + (50*i)))
+
  
 pygame.init()
  
 size = (1000, 600)
 screen = pygame.display.set_mode(size)
  
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Horse-E")
  
 done = False
  
@@ -33,6 +37,7 @@ while not done:
  
     screen.fill(GREY)
     
+    #Race start
     for horse in horses:
         horse.update()
         horse.draw(screen)
