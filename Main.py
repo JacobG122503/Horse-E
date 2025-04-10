@@ -8,7 +8,16 @@ from Names import Names
 GREY = (128, 128, 128)
 BLACK = (0, 0, 0)
 
-# simple button class
+colors = [
+    (255, 0, 0),      #Red
+    (255, 165, 0),    #Orange
+    (255, 255, 0),    #Yellow
+    (0, 255, 0),      #Green
+    (0, 0, 255),      #Blue
+    (128, 0, 128),    #Purple
+]
+
+#Button class
 class Button:
     def __init__(self, x, y, w, h, text, color, callback):
         self.rect = pygame.Rect(x, y, w, h)
@@ -25,19 +34,11 @@ class Button:
         if self.rect.collidepoint(pos):
             self.callback()
 
-colors = [
-    (255, 0, 0),    #Red
-    (0, 255, 255),  #Cyan
-    (255, 255, 255),#White
-    (0, 255, 0),    #Green
-    (60, 179, 113), #MediumSeaGreen
-]
-
+#Generate horses
 horses = []
-
-for i in range(5):
+for i in range(6):
     name = Names.pop(random.randint(0, len(Names) - 1))
-    horses.append(Horse(name, colors[i], 100 + (50 * i)))
+    horses.append(Horse(name, colors[i], 150 + (50 * i)))
 
 #Game Setup
 pygame.init()  
@@ -46,6 +47,7 @@ SCREEN_X = 1000
 SCREEN_Y = 600
 size = (SCREEN_X, SCREEN_Y)
 screen = pygame.display.set_mode(size)
+statusMessage = None
 
 pygame.display.set_caption("Horse-E")
 done = False
@@ -57,9 +59,9 @@ font = pygame.font.SysFont(None, 36)
 selected_bet = None
 
 def make_bet(horse_name):
-    global selected_bet
+    global selected_bet, statusMessage
     selected_bet = horse_name
-    print("You bet on:", selected_bet)
+    statusMessage = "You bet on: " + str(selected_bet)
 
 for i, horse in enumerate(horses):
     btn = Button((SCREEN_X - 200) / 2, 100 + i * 60, 220, 40, f"Bet on {horse.name}", horse.color, lambda name=horse.name: make_bet(name))
@@ -86,7 +88,16 @@ while not done:
         for horse in horses:
             horse.update()
             horse.draw(screen)
+ 
+    #Draw top and bottom bars
+    pygame.draw.rect(screen, BLACK, (0, 0, SCREEN_X, 50))                          
+    pygame.draw.rect(screen, BLACK, (0, SCREEN_Y - 50, SCREEN_X, 50))
 
+    #Status text
+    if selected_bet is not None:
+        status_font = pygame.font.SysFont(None, 28)
+        status_text = status_font.render(f"{statusMessage}", True, (255, 255, 255))
+        screen.blit(status_text, (20, SCREEN_Y - 40))  
  
     pygame.display.flip()
  

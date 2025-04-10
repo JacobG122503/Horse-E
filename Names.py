@@ -11,4 +11,12 @@ Names = [
     "Mlart",
     "Juneau",
     "Dumbass",
+    "Kaladin",
+    "Dalinar",
+    "Adolin",
+    "Shallan",
+    "Jasnah",
+    "Navani",
+    "Syl",
+    "Lift",
 ]
