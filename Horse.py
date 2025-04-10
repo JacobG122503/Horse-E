@@ -12,5 +12,8 @@ class Horse:
     def update(self):
         self.x += self.speed + random.uniform(0, 1)
 
-    def draw(self, screen):
+    def draw(self, screen, font):
         pygame.draw.rect(screen, self.color, (self.x, self.y, 30, 30))
+
+        label = font.render(self.name, True, (0, 0, 0))
+        screen.blit(label, (self.x - label.get_width() - 10, self.y + 5))

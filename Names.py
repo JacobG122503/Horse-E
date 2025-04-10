@@ -19,4 +19,6 @@ Names = [
     "Navani",
     "Syl",
     "Lift",
+    "Derek",
+    "Trang",
 ]

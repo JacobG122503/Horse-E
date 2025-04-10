@@ -47,7 +47,9 @@ SCREEN_X = 1000
 SCREEN_Y = 600
 size = (SCREEN_X, SCREEN_Y)
 screen = pygame.display.set_mode(size)
+
 statusMessage = None
+raceOver = False
 
 pygame.display.set_caption("Horse-E")
 done = False
@@ -79,6 +81,10 @@ while not done:
  
     screen.fill(GREY)
     
+    #Finish Line
+    FINISH_LINE_X = SCREEN_X - 100  
+    pygame.draw.line(screen, (255, 255, 255), (FINISH_LINE_X, 50), (FINISH_LINE_X, SCREEN_Y - 50), 4)
+    
     if selected_bet is None:
         #Bet Screen
         for btn in buttons:
@@ -87,7 +93,12 @@ while not done:
         #Race
         for horse in horses:
             horse.update()
-            horse.draw(screen)
+            horse.draw(screen, font)
+            #If crossed finish line
+            #30 is horse width
+            if (horse.x + 30 >= FINISH_LINE_X) and not raceOver:  
+                raceOver = True
+                statusMessage = f"{horse.name} has won the race!"
  
     #Draw top and bottom bars
     pygame.draw.rect(screen, BLACK, (0, 0, SCREEN_X, 50))                          
@@ -100,7 +111,6 @@ while not done:
         screen.blit(status_text, (20, SCREEN_Y - 40))  
  
     pygame.display.flip()
- 
     clock.tick(60)
  
 
