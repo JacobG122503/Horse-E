@@ -2,12 +2,14 @@ import pygame
 import random
 
 class Horse:
+    isFinished = False
+    
     def __init__(self, name, color, y):
         self.name = name
         self.color = color
         self.x = 0
         self.y = y
-        self.speed = random.uniform(1, 3)
+        self.speed = random.uniform(1, 5) 
 
     def update(self):
         self.x += self.speed + random.uniform(0, 1)
