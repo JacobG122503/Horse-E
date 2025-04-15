@@ -21,4 +21,9 @@ Names = [
     "Lift",
     "Derek",
     "Trang",
+    "Will",
+    "Kaiden",
+    "Tyler",
+    "July",
+    "Mr. Horse",
 ]
