@@ -115,8 +115,11 @@ while not done:
         
         #Race start
         for horse in horses:
+            #Update race horse
             horse.update()
             horse.draw(screen, font)
+            #Update progress line horse
+            horse.drawProgLine(screen, min(200 + ((SCREEN_X - 400) * (horse.x / FINISH_LINE_X)), SCREEN_X - 200), 20)
             #If crossed finish line
             #30 is horse width
             if (horse.x + 30 >= FINISH_LINE_X): 

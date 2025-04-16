@@ -9,7 +9,7 @@ class Horse:
         self.color = color
         self.x = 0
         self.y = y
-        self.speed = random.uniform(1, 5) 
+        self.speed = random.uniform(1, 3) 
         #Animation
         self.frame = 0
         self.animation_speed = 0.2 
@@ -37,3 +37,12 @@ class Horse:
 
         label = font.render(self.name, True, (0, 0, 0))
         screen.blit(label, (self.x - label.get_width() - 35, self.y + 5))
+        
+    def drawProgLine(self, screen, x, y):
+        currentFrame = self.horseFrames[int(self.frame)]
+        smallFrame = pygame.transform.scale(currentFrame, (80, 80))
+        imgX = x - (smallFrame.get_width() - 40)
+        imgY = y - (smallFrame.get_height() + 10) / 2
+        screen.blit(smallFrame, (imgX, imgY))
+        #pygame.draw.rect(screen, self.color, (x, y, 10, 10))
+
