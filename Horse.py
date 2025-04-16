@@ -11,9 +11,18 @@ class Horse:
         self.y = y
         self.speed = random.uniform(1, 5) 
         #Animation
-        self.horseFrames = [pygame.transform.scale(pygame.image.load(f"HorseFrames/frame{i+1}.png"), (125, 125)) for i in range(6)]
         self.frame = 0
         self.animation_speed = 0.2 
+        self.horseFrames = []
+        #Tint them for their color
+        for i in range(6):
+            img = pygame.image.load(f"HorseFrames/frame{i+1}.png").convert_alpha()
+            img = pygame.transform.scale(img, (125, 125))
+            tint_surface = pygame.Surface(img.get_size()).convert_alpha()
+            tint_surface.fill(self.color + (200,))  
+            img.blit(tint_surface, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+            self.horseFrames.append(img)
+
 
 
     def update(self):
@@ -22,7 +31,9 @@ class Horse:
 
     def draw(self, screen, font):
         currentFrame = self.horseFrames[int(self.frame)]
-        screen.blit(currentFrame, (self.x, self.y - (currentFrame.get_height() - 30) / 2))
+        imgX = self.x - (currentFrame.get_width() - 70)
+        imgY = self.y - (currentFrame.get_height() - 30) / 2
+        screen.blit(currentFrame, (imgX, imgY))
 
         label = font.render(self.name, True, (0, 0, 0))
-        screen.blit(label, (self.x - label.get_width() - 10, self.y + 5))
+        screen.blit(label, (self.x - label.get_width() - 35, self.y + 5))

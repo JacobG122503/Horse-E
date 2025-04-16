@@ -41,13 +41,6 @@ class Button:
         if self.rect.collidepoint(pos):
             self.callback()
 
-#Generate horses
-horses = []
-finishOrder = []
-for i in range(6):
-    name = Names.pop(random.randint(0, len(Names) - 1))
-    horses.append(Horse(name, colorsR[i], 150 + (50 * i)))
-
 #Game Setup
 pygame.init()  
 
@@ -62,6 +55,13 @@ raceOver = False
 pygame.display.set_caption("Horse-E")
 done = False
 clock = pygame.time.Clock()
+
+#Generate horses
+horses = []
+finishOrder = []
+for i in range(6):
+    name = Names.pop(random.randint(0, len(Names) - 1))
+    horses.append(Horse(name, colorsR[i], 150 + (50 * i)))
 
 #Set up buttons for betting
 buttons = []
