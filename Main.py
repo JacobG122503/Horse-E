@@ -88,6 +88,12 @@ while not done:
                 btn.check_click(pos)
  
     screen.fill(DIRT)
+
+    #Draw top and bottom bars
+    pygame.draw.rect(screen, GREY, (0, 0, SCREEN_X, 50))                          
+    pygame.draw.rect(screen, GREY, (0, SCREEN_Y - 50, SCREEN_X, 50))
+    pygame.draw.line(screen, BLACK, (0, 50), (SCREEN_X, 50), 3)                          
+    pygame.draw.line(screen, BLACK, (0, SCREEN_Y-50), (SCREEN_X, SCREEN_Y-50), 3)
     
     if selected_bet is None:
         #Bet Screen
@@ -103,6 +109,9 @@ while not done:
         #Finish line
         FINISH_LINE_X = SCREEN_X - 100  
         pygame.draw.line(screen, WHITE, (FINISH_LINE_X, 50), (FINISH_LINE_X, SCREEN_Y - 50), 4)
+
+        #Progress line
+        pygame.draw.line(screen, WHITE, (200, 25), (SCREEN_X - 200, 25), 5)
         
         #Race start
         for horse in horses:
@@ -114,15 +123,6 @@ while not done:
                 if horse.isFinished: continue
                 finishOrder.append(horse) 
                 horse.isFinished = True
-                if not raceOver:
-                    raceOver = True
-                    #statusMessage = f"{horse.name} has won the race!"
-
-    #Draw top and bottom bars
-    pygame.draw.rect(screen, GREY, (0, 0, SCREEN_X, 50))                          
-    pygame.draw.rect(screen, GREY, (0, SCREEN_Y - 50, SCREEN_X, 50))
-    pygame.draw.line(screen, BLACK, (0, 50), (SCREEN_X, 50), 3)                          
-    pygame.draw.line(screen, BLACK, (0, SCREEN_Y-50), (SCREEN_X, SCREEN_Y-50), 3)
 
     #Status text
     if selected_bet is not None:
