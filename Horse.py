@@ -2,14 +2,14 @@ import pygame
 import random
 
 class Horse:
-    isFinished = False
-    
     def __init__(self, name, color, y):
+        self.isFinished = False
+        self.isOffScreen = False
         self.name = name
         self.color = color
         self.x = 0
         self.y = y
-        self.speed = random.uniform(1, 3) 
+        self.speed = random.uniform(3, 5) 
         #Animation
         self.frame = 0
         self.animation_speed = 0.2 

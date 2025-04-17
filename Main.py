@@ -50,7 +50,7 @@ size = (SCREEN_X, SCREEN_Y)
 screen = pygame.display.set_mode(size)
 
 statusMessage = None
-raceOver = False
+horsesOff = 0
 
 pygame.display.set_caption("Horse-E")
 done = False
@@ -99,7 +99,7 @@ while not done:
         #Bet Screen
         for btn in buttons:
             btn.draw(screen, font)
-    elif not len(finishOrder) == len(horses):
+    elif horsesOff != 6:
         #Race logic
         
         #Horse lanes
@@ -120,6 +120,10 @@ while not done:
             horse.draw(screen, font)
             #Update progress line horse
             horse.drawProgLine(screen, min(200 + ((SCREEN_X - 400) * (horse.x / FINISH_LINE_X)), SCREEN_X - 200), 20)
+            #This is so horses still run and game doesn't insta end
+            if not horse.isOffScreen and horse.x >= SCREEN_X + 50:
+                horsesOff += 1
+                horse.isOffScreen = True
             #If crossed finish line
             #30 is horse width
             if (horse.x + 30 >= FINISH_LINE_X): 
@@ -134,7 +138,7 @@ while not done:
         screen.blit(status_text, (20, SCREEN_Y - 40))  
         
     #Ranking screen
-    if len(finishOrder) == len(horses):
+    if horsesOff == 6:
         pygame.draw.rect(screen, GREY, (100, 100, SCREEN_X - 200, SCREEN_Y - 200))
         pygame.draw.rect(screen, BLACK, (100, 100, SCREEN_X - 200, SCREEN_Y - 200), 3)
         
