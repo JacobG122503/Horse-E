@@ -9,14 +9,14 @@ class Horse:
         self.color = color
         self.x = 0
         self.y = y
-        self.speed = random.uniform(3, 5) 
+        self.speed = random.uniform(2, 4) 
         #Animation
         self.frame = 0
         self.animation_speed = 0.2 
         self.horseFrames = []
         #Tint them for their color
         for i in range(6):
-            img = pygame.image.load(f"HorseFrames/frame{i+1}.png").convert_alpha()
+            img = pygame.image.load(f"Images/frame{i+1}.png").convert_alpha()
             img = pygame.transform.scale(img, (125, 125))
             tint_surface = pygame.Surface(img.get_size()).convert_alpha()
             tint_surface.fill(self.color + (255,))

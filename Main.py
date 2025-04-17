@@ -87,7 +87,13 @@ while not done:
             for btn in buttons:
                 btn.check_click(pos)
  
-    screen.fill(DIRT)
+    #Generate dirt background
+    original_tile = pygame.image.load("Images/Dirt.png").convert()
+    dirt_tile = pygame.transform.scale(original_tile, (25, 25))
+    tile_width, tile_height = dirt_tile.get_size()
+    for x in range(0, SCREEN_X, tile_width):
+        for y in range(0, SCREEN_Y, tile_height):
+            screen.blit(dirt_tile, (x, y))
 
     #Draw top and bottom bars
     pygame.draw.rect(screen, GREY, (0, 0, SCREEN_X, 50))                          
@@ -114,7 +120,8 @@ while not done:
         pygame.draw.line(screen, WHITE, (200, 25), (SCREEN_X - 200, 25), 5)
         
         #Race start
-        for horse in horses:
+        #Sorted to draw the highest x last, so that the highest x will always be on top on the progress bar
+        for horse in sorted(horses, key=lambda h: h.x):
             #Update race horse
             horse.update()
             horse.draw(screen, font)
