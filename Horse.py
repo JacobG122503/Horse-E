@@ -19,7 +19,7 @@ class Horse:
             img = pygame.image.load(f"HorseFrames/frame{i+1}.png").convert_alpha()
             img = pygame.transform.scale(img, (125, 125))
             tint_surface = pygame.Surface(img.get_size()).convert_alpha()
-            tint_surface.fill(self.color + (200,))  
+            tint_surface.fill(self.color + (255,))
             img.blit(tint_surface, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
             self.horseFrames.append(img)
 
