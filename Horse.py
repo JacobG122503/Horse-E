@@ -11,6 +11,8 @@ class Horse:
         self.y = y
         self.speed = random.uniform(.5, 1) 
         self.buffOrNerf = 0
+        self.updates = 0
+        self.lastUpdates = 0
         
         #Animation
         self.frame = 0
@@ -27,20 +29,27 @@ class Horse:
             self.horseFrames.append(img)
             
         #Decide if Blessed
-        if random.uniform(0, 100) < 15:
-            self.blessed = True
-            self.name += "-b"
+        if random.uniform(0, 100) < 10:
+            #self.name += "-b"
             self.speed = random.uniform(1,1.5)
             
     def update(self):
+        self.updates += 1
+        #This is so the Tired/Energy buff isn't always on
+        #A horse updates around 800 times
+        if (self.buffOrNerf != 0) and ((self.updates - self.lastUpdates) >= 150):
+            self.buffOrNerf = 0
+            #self.name = self.name[:-2]
         #Horse may get tired or burst of energy
-        if random.uniform(0,100) < 1:
+        if (self.buffOrNerf == 0) and (random.uniform(0,100) < .1):
+            self.lastUpdates = self.updates
             #Tired
             if random.uniform(0,100) < 50:
-                self.buffOrNerf = -.25
+                self.buffOrNerf = -.5
                 #self.name += "-t"
+            #Burst of energy
             else:
-                self.buffOrNerf = .25
+                self.buffOrNerf = .75
                 #self.name += "-s"
         self.x += self.speed + random.uniform(0, 1) + self.buffOrNerf
         self.frame = (self.frame + self.animation_speed) % 6

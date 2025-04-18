@@ -27,4 +27,11 @@ Names = [
     "July",
     "Mr. Horse",
     "Jacob",
+    "Narancia",
+    "Jotaro",
+    "Gyro",
+    "Polnareff",
+    "Giorno",
+    "Hol Horse",
+    "M.J.K.",
 ]
