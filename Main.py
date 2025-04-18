@@ -12,14 +12,6 @@ WHITE = (255, 255, 255)
 DIRT = (118,85,43)
 GOLD = (255, 215, 0)
 
-# colors = [
-#     (255, 0, 0),      #Red
-#     (255, 165, 0),    #Orange
-#     (0, 255, 0),      #Green
-#     (0, 0, 255),      #Blue
-#     (128, 0, 128),    #Purple
-# ]
-
 colorsR = []
 for i in range(6):
     colorsR.append((random.randint(0,255), random.randint(0,255), random.randint(0,255)))
@@ -74,7 +66,7 @@ def make_bet(horse_name):
     statusMessage = "You bet on: " + str(selected_bet)
 
 for i, horse in enumerate(horses):
-    btn = Button((SCREEN_X - 200) / 2, 100 + i * 60, 220, 40, f"Bet on {horse.name}", horse.color, lambda name=horse.name: make_bet(name))
+    btn = Button((SCREEN_X - 250) / 2, 100 + i * 60, 230, 40, f"Bet on {horse.name}", horse.color, lambda name=horse.name: make_bet(name))
     buttons.append(btn)
 
 #Game loop
@@ -118,7 +110,7 @@ while not done:
 
         #Progress line
         pygame.draw.line(screen, WHITE, (200, 25), (SCREEN_X - 200, 25), 5)
-        
+                        
         #Race start
         #Sorted to draw the highest x last, so that the highest x will always be on top on the progress bar
         for horse in sorted(horses, key=lambda h: h.x):

@@ -1,7 +1,7 @@
 To do:
 - Main Menu
 - Betting screen
-- Race Sim
+- Race Sim (Blessing)
 
 Done: 
 - Horse Images
