@@ -3,7 +3,7 @@
 import pygame
 import random
 from Horse import Horse
-from Names import Names
+from Names import Name_List
 
 GREY = (128, 128, 128)
 BLACK = (0, 0, 0)
@@ -48,6 +48,9 @@ pygame.display.set_caption("Horse-E")
 done = False
 clock = pygame.time.Clock()
 
+OG_Names = Name_List[:] 
+Names = OG_Names[:]
+
 #Generate horses
 horses = []
 finishOrder = []
@@ -59,6 +62,25 @@ for i in range(6):
 buttons = []
 font = pygame.font.SysFont(None, 36)
 selected_bet = None
+
+def reset_race():
+    global horses, finishOrder, selected_bet, statusMessage, horsesOff, buttons, Names
+    #Reset Variables
+    Names = OG_Names[:]
+    selected_bet = None
+    statusMessage = None
+    horsesOff = 0
+    finishOrder = []
+    horses = []
+    buttons = []
+    #Generate new horses
+    for i in range(6):
+        name = Names.pop(random.randint(0, len(Names) - 1))
+        horses.append(Horse(name, colorsR[i], 150 + (50 * i)))
+    #Display new bet buttons
+    for i, horse in enumerate(horses):
+        btn = Button((SCREEN_X - 250) / 2, 100 + i * 60, 230, 40, f"Bet on {horse.name}", horse.color, lambda name=horse.name: make_bet(name))
+        buttons.append(btn)
 
 def make_bet(horse_name):
     global selected_bet, statusMessage
@@ -78,6 +100,9 @@ while not done:
             pos = pygame.mouse.get_pos()
             for btn in buttons:
                 btn.check_click(pos)
+            if horsesOff == 6:
+                race_again_btn.check_click(pos)
+
  
     #Generate dirt background
     original_tile = pygame.image.load("Images/Dirt.png").convert()
@@ -150,6 +175,10 @@ while not done:
                 color = BLACK
             screen.blit(status_font.render(f"{i}. {horse.name}", True, color), ((SCREEN_X - 200) / 2, 150 + (30*i)))
             i += 1
+        #Race again
+        race_again_btn = Button((SCREEN_X - 200) // 2, 420, 200, 40, "Race Again", GOLD, reset_race)
+        race_again_btn.draw(screen, font)
+
  
     pygame.display.flip()
     clock.tick(60)

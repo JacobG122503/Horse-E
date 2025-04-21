@@ -1,4 +1,4 @@
-Names = [
+Name_List = [
     "Darrow",
     "Cassius",
     "Lysander",
