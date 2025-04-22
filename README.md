@@ -1,5 +1,5 @@
 To do:
-
+- Make constants at the top so you can easily change how many horses are in race and size of your screen. Just make it all work.
 
 Done: 
 - Race again button
